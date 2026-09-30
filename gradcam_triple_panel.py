@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 import timm
 
 from ghostnet import GhostNet
-from ghostnetv2 import GhostNetV2
 
 
 # =========================
@@ -47,9 +46,6 @@ def get_model(model_name, num_classes):
 
     elif model_name == "ghostnet":
         model = GhostNet(num_classes=num_classes)
-
-    elif model_name == "ghostnetv2":
-        model = GhostNetV2(num_classes=num_classes)
 
     elif model_name == "vit":
         import timm

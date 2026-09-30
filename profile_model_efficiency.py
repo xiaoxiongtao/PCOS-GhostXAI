@@ -5,7 +5,6 @@ import timm
 import time
 from fvcore.nn import FlopCountAnalysis
 from ghostnet import GhostNet
-from ghostnetv2 import GhostNetV2
 
 # ==========================================
 # 【关键修改】导入你自行编码好的本地模型
@@ -22,20 +21,6 @@ except ImportError as e:
     # 提供一个备用占位，防止代码直接崩溃
     def GhostNet():
         return None
-
-try:
-    # 假设你的 GhostNetV2 文件名叫 GhostnetV2.py，类名叫 GhostNetV2
-    # 如果你在同一个文件里，可以写 from Ghostnet import GhostNetV2
-    from ghostnetv2 import GhostNetV2
-
-    print("成功导入本地自行编码的 GhostNetV2 模型")
-except ImportError as e:
-    print(f"警告: 无法导入本地 GhostNetV2，请检查文件名和类名。错误信息: {e}")
-
-
-    def GhostNetV2():
-        return None
-
 
 # ==========================================
 # 1. 动态获取模型（已替换本地模型调用）
@@ -84,8 +69,6 @@ def get_model(model_name):
         model = timm.create_model('vit_base_patch16_224', pretrained=False)
         model.head = nn.Linear(model.head.in_features, num_classes)
 
-    elif 'ghostnetv2' in name_lower:
-        model = GhostNetV2(num_classes=num_classes)
     elif 'ghostnet' in name_lower:
         model = GhostNet(num_classes=num_classes)
     else:
@@ -208,10 +191,9 @@ def profile_model(model_name, batch_size=32):
 # 3. 顺序执行并打印最终的对比表格
 # ==========================================
 if __name__ == "__main__":
-    # 11 个模型完整名单
+    # 10 个模型完整名单
     my_model_list = [
         "GhostNet",  # 对应你本地自行编码的 V1
-        "GhostNetV2",  # 对应你本地自行编码的 V2
         "ResNet18",
         "Googlenet",
         "InceptionV3",
