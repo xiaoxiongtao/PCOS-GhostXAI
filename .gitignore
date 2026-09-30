@@ -1,0 +1,14 @@
+.idea/
+__pycache__/
+*.py[cod]
+*.pth
+*.pt
+*.ckpt
+PCOS_Final_Ready/
+PCOS/
+data/
+datasets/
+results.txt
+smoothed_*_run*.png
+*_triple_cam.png
+*_natural_cam.png
